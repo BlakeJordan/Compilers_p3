@@ -1,0 +1,8 @@
+int f(int arg1,bool arg2){
+}
+
+void g() {
+    int a;
+    f(int,bool->int)(a(int), true);
+	g(->void)();
+}
