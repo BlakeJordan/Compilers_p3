@@ -9,8 +9,11 @@ bool ASTNode::nameAnalysis(SymbolTable * symTab){
 		"been overriden in the subclass!");
 }
 
-bool ProgramNode::nameAnalysis(SymbolTable * symTab){
+bool ProgramNode::nameAnalysis(SymbolTable * symTab) {
+	// symTab->enterScope
 	return this->myDeclList->nameAnalysis(symTab);
+	// add validity check
+	// smyTab->exitScope
 }
 
 bool DeclListNode::nameAnalysis(SymbolTable * symTab){
@@ -23,46 +26,60 @@ bool DeclListNode::nameAnalysis(SymbolTable * symTab){
 
 bool VarDeclListNode::nameAnalysis(SymbolTable * symTab){
 	bool nameAnalysisOk = true;
-	throw new ToDoError("[DELETE ME] I'm a varDeclListNode"
-		" you should iterate over my subtree, adding"	
-		" symbols as neccesary to the current scope"
-	);
+	for (auto varDecl : *myDecls) {
+		nameAnalysisOk = varDecl->nameAnalysis(symTab) && nameAnalysisOk;
+	}
 	return nameAnalysisOk;
 }
 
 bool StmtListNode::nameAnalysis(SymbolTable * symTab){
 	bool nameAnalysisOk = true;
-	throw new ToDoError("[DELETE ME] I'm a stmtListNode"
-		" you should iterate over my subtree, using"	
-		" the symbols previously gathered to "	
-		" see if variables are declared"
-	);
+	for(auto stmt : *myStmts) {
+		nameAnalysisOk = stmt->nameAnalysis(symTab) && nameAnalysisOk;
+	}
 	return nameAnalysisOk;
 }
 
 bool VarDeclNode::nameAnalysis(SymbolTable * symTab){
 	bool nameAnalysisOk = true;
+	SemSymbol * symbol = new SemSymbol();
+	symbol->SetId(myID->getString());
+	symbol->SetType(myType->getType());	
+	symbol->SetKind("VarDecl");
 
-	std::string name = this->myID->getString();
-	std::cout<<"\n"<<name<<"\n";
-	// symTab->scopeTableChain->begin()->symbols->insert({name, type});
-	AddScope(symTab);
+	// error check
 
-
-	throw new ToDoError("[DELETE ME] I'm a varDecl"
-		" you should add the information from my"	
-		" subtree to the symbolTable as a new"	
-		" entry in the current scope table"
-	);
-	return nameAnalysisOk;
+	return symTab->AddSymbol(myID->getString(), symbol);
 }
 
 bool FnDeclNode::nameAnalysis(SymbolTable * symTab){
 	bool nameAnalysisOk = true;
-	throw new ToDoError("[DELETE ME] I'm an fnDecl."
-		" you should add and make current a new"	
-		" scope table for my body"
-	);
+	bool first = true;
+	std::string type;
+	SemSymbol * symbol = new SemSymbol();
+	for (auto formal : *myFormals->GetFormals()) {
+		if (first){ first = false; }
+		else { type += ","; }
+		type += formal->getType();
+	}
+	type += "->" + myRetAST->getType();
+	symbol->SetType(type);
+	symbol->SetKind("FnDecl");
+	symbol->SetId(myID->getString());
+	
+	// if(symTab->findByName(getId()))
+	// {
+	// 	error checking
+	// }
+	// else
+	// {
+	// 	symTab->addItem(myID->getString(), symbol);
+	// }
+
+	symTab->AddScope();
+	myFormals->nameAnalysis(symTab);
+	myBody->nameAnalysis(symTab);
+	symTab->DropScope();
 	return nameAnalysisOk;
 }
 }

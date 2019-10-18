@@ -36,6 +36,10 @@ void TypeNode::setPtrDepth(size_t depth){
 	myPtrDepth = depth;
 }
 
+std::list<FormalDeclNode *> * FormalsListNode::GetFormals() {
+	return myFormals;
+}
+
 DerefNode::DerefNode(size_t lnIn, size_t colIn, ExpNode * tgt)
 : ExpNode(lnIn, colIn), myTgt(tgt){ }
 

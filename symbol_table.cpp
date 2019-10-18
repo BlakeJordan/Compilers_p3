@@ -6,10 +6,20 @@ namespace lake{
 	}
 
 	bool ScopeTable::LookUp(std::string id) {
-		int count = symbols->count(id);
-		if (count != 0) { 
+		return(symbols->count(id) > 0);
+	}
+
+	std::string ScopeTable::GetType(std::string id) {
+		return symbols->find(id)->second->GetType();
+	}
+
+	bool ScopeTable::AddSymbol(std::string id, SemSymbol * symbol) {
+		if (!LookUp(id)) {
+			symbols->insert({id, symbol});
 			return true;
-		} else {
+		}
+		else
+		{
 			return false;
 		}
 	}
@@ -24,16 +34,38 @@ namespace lake{
 		scopeTableChain = new std::list<ScopeTable *>();
 	}
 
-	void SymbolTable::AddScope(ScopeTable * newScope) {
-		scopeTableChain->push_front(newScope);
+	void SymbolTable::AddScope() {
+		scopeTableChain->push_front(new ScopeTable());
 	}
 
 	void SymbolTable::DropScope() {
 		scopeTableChain->pop_front();
 	}
 
-	SemSymbol::SemSymbol(std::string type) {
-		m_type = type;
+	bool SymbolTable::LookUp(std::string id) {
+		int tables = scopeTableChain->size();
+		for(ScopeTable * scopeTable: * scopeTableChain) {
+			if(scopeTable->LookUp(id)) {
+				return true;
+			}
+ 		}
+		 return false;
+	}
+
+	bool SymbolTable::AddSymbol(std::string id, SemSymbol * symbol) {
+		return scopeTableChain->front()->AddSymbol(id, symbol);
+	}
+
+	// get table containing id ???
+
+	SemSymbol::SemSymbol(){}
+
+	void SemSymbol::SetId(std::string id) {
+		m_id = id;
+	}
+
+	std::string SemSymbol::GetId() {
+		return m_id;
 	}
 
 	void SemSymbol::SetType(std::string type) {
@@ -42,6 +74,14 @@ namespace lake{
 
 	std::string SemSymbol::GetType() {
 		return m_type;
+	}
+
+	void SemSymbol::SetKind(std::string kind) {
+		m_kind = kind;
+	}
+
+	std::string SemSymbol::GetKind() {
+		return m_kind;
 	}
 
 }

@@ -24,12 +24,18 @@ class SemSymbol {
 	// and functions to get/set those fields
 
 	public:
-		SemSymbol(std::string type);
-		std::string m_type;
+		SemSymbol();
+		std::string GetId();
+		void SetId(std::string id);
+		std::string GetType();
+		void SetType(std::string type);
+		std::string GetKind();
+		void SetKind(std::string kind);
 		
 	private:
-		void SetType(std::string type);
-		std::string GetType();
+		std::string m_id;
+		std::string m_type;
+		std::string m_kind;
 };
 
 //A single scope. The symbol table is broken down into a 
@@ -45,7 +51,8 @@ class ScopeTable {
 		// and/or returning information to indicate
 		// that the symbol does not exist within the
 		// current scope.
-
+		std::string GetType(std::string id);
+		bool AddSymbol(std::string id, SemSymbol * symbol);
 		bool LookUp(std::string id);
 	private:
 		HashMap<std::string, SemSymbol *> * symbols;
@@ -57,8 +64,10 @@ class SymbolTable{
 		//TODO: add functions to create a new ScopeTable
 		// when a new scope is entered, drop a ScopeTable
 		// when a scope is exited, etc. 
-		void AddScope(ScopeTable * newScope);
+		void AddScope();
 		void DropScope();
+		bool AddSymbol(std::string id, SemSymbol * symbol);
+		bool LookUp(std::string id);
 	private:
 		std::list<ScopeTable *> * scopeTableChain;
 };

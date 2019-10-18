@@ -57,6 +57,9 @@ public:
 	virtual void setPtrDepth(size_t depth); 
 	virtual size_t getPtrDepth(){ return myPtrDepth; }
 	virtual void printIndirection(std::ostream& out);
+	virtual std::string getType() {
+		return "not implemented!!!!!!";
+	}
 private:
 	size_t myPtrDepth;
 };
@@ -122,6 +125,9 @@ public:
 	DeclNode(size_t l, size_t c, IdNode *); 
 	std::string getDeclaredName(){ return myID->getString(); }
 	void unparse(std::ostream& out, int indent) override =0;
+		virtual std::string getType() {
+		return "not implemented!!!!!!";
+	}
 protected:
 	IdNode * myID;
 };
@@ -142,6 +148,7 @@ public:
 	FormalsListNode(std::list<FormalDeclNode *>* formalsIn)
 	: ASTNode(0, 0), myFormals(formalsIn){ }
 	void unparse(std::ostream& out, int indent) override;
+	std::list<FormalDeclNode *> * GetFormals();
 private:
 	std::list<FormalDeclNode *> * myFormals;
 };
@@ -208,12 +215,18 @@ class IntNode : public TypeNode{
 public:
 	IntNode(size_t lIn, size_t cIn) : TypeNode(lIn, cIn){}
 	void unparse(std::ostream& out, int indent) override;
+	std::string getType() {
+		return "int";
+	}
 };
 
 class BoolNode : public TypeNode{
 public:
 	BoolNode(size_t lIn, size_t cIn) : TypeNode(lIn, cIn) { }
 	void unparse(std::ostream& out, int indent) override;
+	std::string getType() {
+		return "bool";
+	}
 };
 
 class VoidNode : public TypeNode{
@@ -221,6 +234,9 @@ public:
 	VoidNode(size_t lIn, size_t cIn) 
 	: TypeNode(lIn, cIn){}
 	void unparse(std::ostream& out, int indent) override;
+	std::string getType() {
+		return "void";
+	}
 };
 
 class IntLitNode : public ExpNode{
@@ -230,6 +246,9 @@ public:
 		myInt = token->value();
 	}
 	void unparse(std::ostream& out, int indent) override;
+	std::string getType() {
+		return "intLit";
+	}
 private:
 	int myInt;
 };
@@ -241,6 +260,9 @@ public:
 		myString = token->value();
 	}
 	void unparse(std::ostream& out, int indent) override;
+	std::string getType() {
+		return "strLit";
+	}
 private:
 	 std::string myString;
 };
@@ -557,6 +579,9 @@ public:
 	void unparse(std::ostream& out, int indent) override;
 	TypeNode * getTypeNode(){ return myType; }
 	bool nameAnalysis(SymbolTable * symTab) override;
+	virtual std::string getType() {
+		return "not implemented!!!!!!";
+	}
 private:
 	//Note that VarDeclNode does not have it's own 
 	TypeNode * myType;
