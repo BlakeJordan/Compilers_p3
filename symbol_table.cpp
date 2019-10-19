@@ -24,6 +24,10 @@ namespace lake{
 		}
 	}
 
+	SemSymbol * ScopeTable::GetSymbol(std::string id) {
+		return symbols->find(id)->second;
+	}
+
 	SymbolTable::SymbolTable(){
 		//TODO: implement the list of hashtables approach
 		// to building a symbol table:
@@ -56,7 +60,14 @@ namespace lake{
 		return scopeTableChain->front()->AddSymbol(id, symbol);
 	}
 
-	// get table containing id ???
+	ScopeTable * SymbolTable::GetTable(std::string id) {
+		for(auto table: *scopeTableChain) {
+			if(table->LookUp(id)) {
+				return table;
+			}
+		}
+		return nullptr;
+	}
 
 	SemSymbol::SemSymbol(){}
 

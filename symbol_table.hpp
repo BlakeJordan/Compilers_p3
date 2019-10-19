@@ -54,6 +54,7 @@ class ScopeTable {
 		std::string GetType(std::string id);
 		bool AddSymbol(std::string id, SemSymbol * symbol);
 		bool LookUp(std::string id);
+		SemSymbol* GetSymbol(std::string id);
 	private:
 		HashMap<std::string, SemSymbol *> * symbols;
 };
@@ -68,6 +69,7 @@ class SymbolTable{
 		void DropScope();
 		bool AddSymbol(std::string id, SemSymbol * symbol);
 		bool LookUp(std::string id);
+		ScopeTable* GetTable(std::string id);
 	private:
 		std::list<ScopeTable *> * scopeTableChain;
 };
