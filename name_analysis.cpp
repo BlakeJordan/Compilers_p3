@@ -127,7 +127,7 @@ bool FormalDeclNode::nameAnalysis(SymbolTable * symTab) {
 bool IdNode::nameAnalysis(SymbolTable * symTab) {
 	bool nameAnalysisOk = true;
 	if(!symTab->LookUp(myStrVal)) {
-		//Err::semanticReport(myID->getLine(), myID->getCol(), "Undeclared identifier");
+		Err::semanticReport(getLine(), getCol(), "Undeclared identifier");
 	}
 	else
 	{
