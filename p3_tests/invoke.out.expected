@@ -7,18 +7,19 @@ void g() {
     bool b;
     int a;
     int d;
-    int @ f;
+    int @ w;
     d(int) = 10;
     b(bool) = true;
     a(int) = 4;
+    w(int@) = 12;
     if(b(bool)) {
-        f(int@)(a(int),true);
+        f(int,bool->int)(a(int),true);
     }
     else {
         g(->void)();
     }
     while(b(bool)) {
-        f(int@)(a(int),b(bool));
+        f(int,bool->int)(a(int),b(bool));
         b(bool) = false;
     }
     a(int) = (a(int)+(d(int)*d(int)));

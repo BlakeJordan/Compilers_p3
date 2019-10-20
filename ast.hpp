@@ -99,7 +99,7 @@ class DerefNode : public ExpNode {
 public:
 	DerefNode(size_t line, size_t column, ExpNode *);
 	void unparse(std::ostream& out, int indent) override;
-	bool nameAnalysis(SymbolTable * symTab) {return true;}
+	bool nameAnalysis(SymbolTable * symTab);
 private:
 	ExpNode * myTgt;
 };

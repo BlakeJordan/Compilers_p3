@@ -1,5 +1,7 @@
 int f(int arg1, bool arg2) {
     int c;
+    int d;
+    bool a;
     c(int) = 2;
     return c(int);
 }

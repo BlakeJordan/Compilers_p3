@@ -1,10 +1,33 @@
 int f(int arg1,bool arg2){
+	int c;
+	int d;
+	bool a;
+	c = 2;
+	return c;
+}
+int z(bool x) {
+	return "boob";
 }
 void g(){
-	int a;
 	bool b;
-	a = 5;
-	f(a, true);
-	g();
+	int a;
+	int d;
+	int @ w;
+	d = 10;
+	a = z(butt);
 	b = true;
+	a = 4;
+	w = 12;
+	if(b) {
+		f(a, true);
+	}
+	else {
+		g();
+	}
+	while(b) {
+		f(a, b);
+		b = false;
+	}
+	a = a + d * d;
+	
 }
