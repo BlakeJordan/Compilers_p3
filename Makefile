@@ -12,7 +12,7 @@ all:
 	make lakec
 
 clean:
-	rm -rf *.output *.o *.cc *.hh $(DEPS) lakec parser.dot parser.png
+	rm -rf *.output *.o *.cc *.hh output.txt $(DEPS) lakec parser.dot parser.png
 
 -include $(DEPS)
 

@@ -601,6 +601,7 @@ public:
 	: StmtNode(lineIn, colIn){
 		myExp = exp;
 	}
+	bool nameAnalysis(SymbolTable * symTab);
 	void unparse(std::ostream& out, int indent) override;
 private:
 	ExpNode * myExp;

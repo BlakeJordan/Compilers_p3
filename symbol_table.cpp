@@ -15,18 +15,14 @@ namespace lake{
 
 	bool ScopeTable::AddSymbol(std::string id, SemSymbol * symbol) {
 		if (!LookUp(id)) {
-			symbols->insert({id, symbol});
+			symbols->insert({{id, symbol}});
 			return true;
 		}
-		else
-		{
+		else {
 			return false;
 		}
 	}
 
-	SemSymbol * ScopeTable::GetSymbol(std::string id) {
-		return symbols->find(id)->second;
-	}
 
 	SymbolTable::SymbolTable(){
 		//TODO: implement the list of hashtables approach
@@ -54,6 +50,10 @@ namespace lake{
 			}
  		}
 		 return false;
+	}
+
+	std::string SymbolTable::GetType(std::string id) {
+		return GetTable(id)->GetType(id);
 	}
 
 	bool SymbolTable::AddSymbol(std::string id, SemSymbol * symbol) {
