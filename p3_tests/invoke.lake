@@ -1,7 +1,26 @@
 int f(int arg1,bool arg2){
+	int c;
+	c = 2;
+	return c;
 }
 void g(){
+	bool b;
 	int a;
-	f(a, true);
-	g();
+	int d;
+	int @ f;
+	d = 10;
+	b = true;
+	a = 4;
+	if(b) {
+		f(a, true);
+	}
+	else {
+		g();
+	}
+	while(b) {
+		f(a, b);
+		b = false;
+	}
+	a = a + d * d;
+	
 }

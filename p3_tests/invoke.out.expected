@@ -1,7 +1,25 @@
 int f(int arg1, bool arg2) {
+    int c;
+    c(int) = 2;
+    return c(int);
 }
 void g() {
+    bool b;
     int a;
-    f(int,bool->int)(a(int), true);
-	g(->void)();
+    int d;
+    int @ f;
+    d(int) = 10;
+    b(bool) = true;
+    a(int) = 4;
+    if(b(bool)) {
+        f(int@)(a(int),true);
+    }
+    else {
+        g(->void)();
+    }
+    while(b(bool)) {
+        f(int@)(a(int),b(bool));
+        b(bool) = false;
+    }
+    a(int) = (a(int)+(d(int)*d(int)));
 }

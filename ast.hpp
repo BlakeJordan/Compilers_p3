@@ -1,6 +1,7 @@
 #ifndef LAKE_AST_HPP
 #define LAKE_AST_HPP
 
+#include <iostream>
 #include <ostream>
 #include <list>
 #include "err.hpp"
@@ -590,6 +591,7 @@ public:
 	: StmtNode(callExp->getLine(), callExp->getCol()){
 		myCallExp = callExp;
 	}
+	bool nameAnalysis(SymbolTable * symTab);
 	void unparse(std::ostream& out, int indent) override;
 private:
 	CallExpNode * myCallExp;
