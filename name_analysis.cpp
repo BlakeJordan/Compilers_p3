@@ -153,10 +153,8 @@ bool IdNode::nameAnalysis(SymbolTable * symTab) {
 std::cout<<"\nId Node Postition: "<<this->getPosition()<<"\n";
 	if(!symTab->LookUp(myStrVal)) {
 		Err::semanticReport(getLine(), getCol(), "Undeclared identifier");
-		return false;
 	}
-	else
-	{
+	else {
 		myStrVal += "(" + symTab->GetTable(myStrVal)->GetType(myStrVal) + ")";
 	}
 	
